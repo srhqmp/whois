@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import ContactInformation from "./components/ContactInformation";
 import DomainInformation from "./components/DomainInformation";
@@ -13,6 +13,17 @@ const App = () => {
     domain: true,
     contact: true,
   });
+
+  useEffect(() => {
+    const storageDisplayOptions = localStorage.getItem("display-options");
+    if (storageDisplayOptions) {
+      setDisplayOptions(JSON.parse(storageDisplayOptions));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("display-options", JSON.stringify(displayOptions));
+  }, [displayOptions]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
