@@ -4,11 +4,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#FF6363",
+        primary: "#45474B",
         secondary: {
-          100: "#E2E2D5",
-          200: "#888883",
+          100: "#379777",
+          200: "#F4CE14",
         },
+        contrast: "#F5F7F8",
       },
       fontFamily: {
         body: ["Nunito"],
