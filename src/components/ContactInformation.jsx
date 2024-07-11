@@ -1,4 +1,6 @@
-const ContactInformation = ({ domain }) => {
+const ContactInformation = ({ domain, hidden }) => {
+  if (hidden) return null;
+
   return (
     <div>
       <h3>Contact Information</h3>

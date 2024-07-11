@@ -1,6 +1,8 @@
 import { convertDate, truncateHostnames } from "../utils";
 
-const DomainInformation = ({ domain }) => {
+const DomainInformation = ({ domain, hidden }) => {
+  if (hidden) return null;
+
   return (
     <div>
       <h3>Domain Information</h3>

@@ -9,6 +9,10 @@ const App = () => {
   const [search, setSearch] = useState("");
   const [domain, setDomain] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [displayOptions, setDisplayOptions] = useState({
+    domain: true,
+    contact: true,
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -42,8 +46,41 @@ const App = () => {
       {errorMessage && <div>{errorMessage}</div>}
       {domain && (
         <>
-          <DomainInformation domain={domain} />
-          <ContactInformation domain={domain} />
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                checked={displayOptions.domain}
+                onChange={() =>
+                  setDisplayOptions((curr) => ({
+                    ...curr,
+                    domain: !curr.domain,
+                  }))
+                }
+              />
+              Display Domain Information
+            </label>
+          </div>
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                checked={displayOptions.contact}
+                onChange={() =>
+                  setDisplayOptions((curr) => ({
+                    ...curr,
+                    contact: !curr.contact,
+                  }))
+                }
+              />
+              Display Contact Information
+            </label>
+          </div>
+          <DomainInformation domain={domain} hidden={!displayOptions.domain} />
+          <ContactInformation
+            domain={domain}
+            hidden={!displayOptions.contact}
+          />
         </>
       )}
     </div>
