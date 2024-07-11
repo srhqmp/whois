@@ -3,10 +3,8 @@ const ContactInformation = ({ domain, hidden }) => {
 
   return (
     <div className="mt-8">
-      <h3 className="mt-12 pb-2 text-gray-900 text-xl md:text-2xl uppercase font-semibold">
-        Contact Information
-      </h3>
-      <table className="bg-white rounded shadow-md w-full">
+      <h3 className="information-header">Contact Information</h3>
+      <table className="table">
         <thead className="font-bold">
           <tr>
             <th>Registrant Name</th>

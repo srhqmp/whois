@@ -49,10 +49,8 @@ const App = () => {
   };
 
   return (
-    <div className="text-gray-600 font-body bg-gray-100 h-screen">
-      <h1 className="text-gray-900 md:text-6xl text-2xl uppercase p-4 border-b border-gray-100 flex justify-center">
-        Whois
-      </h1>
+    <div className="main">
+      <h1 className="logo">Whois</h1>
       <div className="px-16 py-6">
         <div className="text-primary flex justify-center">
           Enter domain name
@@ -74,11 +72,7 @@ const App = () => {
             search
           </button>
         </form>
-        {errorMessage && (
-          <div className="my-6 flex justify-center text-red-600 font-bold italic">
-            {errorMessage}
-          </div>
-        )}
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
         {!errorMessage && domain && (
           <>
             <div className="flex items-center flex-col">
