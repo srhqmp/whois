@@ -1,29 +1,32 @@
 import { useState } from "react";
+
 import whois from "./services/whois";
+import { convertDate, truncateHostnames } from "./utils";
 
 const DomainInformation = ({ domain }) => {
-  console.log({ domain });
   return (
     <div>
       <h3>Domain Information</h3>
       <table>
         <thead>
-          <th>Domain Name</th>
-          <th>Registrar</th>
-          <th>Registration Date</th>
-          <th>Expiration Date</th>
-          <th>Estimated Domain Age</th>
-          <th>Hostnames</th>
+          <tr>
+            <th>Domain Name</th>
+            <th>Registrar</th>
+            <th>Registration Date</th>
+            <th>Expiration Date</th>
+            <th>Estimated Domain Age</th>
+            <th>Hostnames</th>
+          </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{domain.domainName}</td>
-            <td>{domain.registrarName}</td>
-            <td>{domain.createdDate}</td>
-            <td>{domain.expiresDate}</td>
-            <td>{domain.estimatedDomainAge}</td>
+            <td>{domain.domainName || "N/A"}</td>
+            <td>{domain.registrarName || "N/A"}</td>
+            <td>{convertDate(domain.createdDate)}</td>
+            <td>{convertDate(domain.expiresDate)}</td>
+            <td>{domain.estimatedDomainAge || "N/A"}</td>
             <td>
-              {domain.nameServers.hostNames.join(", ").slice(0, 25 - 3) + "..."}
+              {truncateHostnames(domain.nameServers.hostNames, 25) || "N/A"}
             </td>
           </tr>
         </tbody>
@@ -45,10 +48,10 @@ const ContactInformation = ({ domain }) => {
         </thead>
         <tbody>
           <tr>
-            <td>{domain.registrant.name}</td>
-            <td>{domain.technicalContact.name}</td>
-            <td>{domain.administrativeContact.name}</td>
-            <td>{domain.contactEmail}</td>
+            <td>{domain.registrant.name || "N/A"}</td>
+            <td>{domain.technicalContact.name || "N/A"}</td>
+            <td>{domain.administrativeContact.name || "N/A"}</td>
+            <td>{domain.contactEmail || "N/A"}</td>
           </tr>
         </tbody>
       </table>
@@ -70,9 +73,9 @@ const App = () => {
         throw new Error(data.ErrorMessage.msg);
       }
       console.log(data);
-      if (data) {
+      if (data?.WhoisRecord) {
         setErrorMessage(null);
-        setDomain(data);
+        setDomain(data.WhoisRecord);
       }
     } catch (error) {
       setErrorMessage(error.message);
@@ -93,8 +96,8 @@ const App = () => {
       {errorMessage && <div>{errorMessage}</div>}
       {domain && (
         <>
-          <DomainInformation domain={domain.WhoisRecord} />
-          <ContactInformation domain={domain.WhoisRecord} />
+          <DomainInformation domain={domain} />
+          <ContactInformation domain={domain} />
         </>
       )}
     </div>
