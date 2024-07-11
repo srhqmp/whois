@@ -2,21 +2,25 @@ const ContactInformation = ({ domain, hidden }) => {
   if (hidden) return null;
 
   return (
-    <div>
-      <h3>Contact Information</h3>
-      <table>
-        <thead>
-          <th>Registrant Name</th>
-          <th>Technical Contact Name</th>
-          <th>Administrative Contact Name</th>
-          <th>Contact Email</th>
-        </thead>
-        <tbody>
+    <div className="mt-8">
+      <h3 className="mt-12 pb-2 text-gray-900 text-xl md:text-2xl uppercase font-semibold">
+        Contact Information
+      </h3>
+      <table className="bg-white rounded shadow-md w-full">
+        <thead className="font-bold">
           <tr>
-            <td>{domain.registrant.name || "N/A"}</td>
-            <td>{domain.technicalContact.name || "N/A"}</td>
-            <td>{domain.administrativeContact.name || "N/A"}</td>
-            <td>{domain.contactEmail || "N/A"}</td>
+            <th>Registrant Name</th>
+            <th>Technical Contact Name</th>
+            <th>Administrative Contact Name</th>
+            <th>Contact Email</th>
+          </tr>
+        </thead>
+        <tbody className="text-sm">
+          <tr>
+            <td>{domain?.registrant?.name || "N/A"}</td>
+            <td>{domain?.technicalContact?.name || "N/A"}</td>
+            <td>{domain?.administrativeContact?.name || "N/A"}</td>
+            <td>{domain?.contactEmail || "N/A"}</td>
           </tr>
         </tbody>
       </table>
