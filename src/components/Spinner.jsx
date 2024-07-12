@@ -1,4 +1,6 @@
-const Spinner = () => {
+const Spinner = ({ loading }) => {
+  if (!loading) return null;
+
   return (
     <div className="fixed flex-col gap-2 top-0 left-0 w-full h-full flex items-center justify-center">
       <div className="bg-white px-4 py-6 rounded-lg flex items-center justify-center flex-col gap-2">
