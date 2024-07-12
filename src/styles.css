@@ -44,6 +44,10 @@
   @apply rounded-md py-2 px-3 h-10 uppercase text-xs font-bold cursor-pointer tracking-wider hover:bg-secondary-100 border hover:text-contrast border-secondary-100 text-secondary-100 bg-contrast transition ease-out duration-500;
 }
 
+.btn-secondary {
+  @apply text-secondary-100 block cursor-pointer border-secondary-100 border-2 px-2 rounded-full hover:bg-secondary-100 hover:text-contrast  transition ease-out duration-500;
+}
+
 .input-text {
   @apply rounded-md py-2 w-2/4 px-3 h-10 text-sm font-bold tracking-wider border-2 text-primary;
 }

@@ -9,7 +9,8 @@ const options = {
 };
 
 export const convertDate = (dateString) => {
-  if (!dateString) return "N/A";
+  if (!dateString) return null;
+
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", options);
 };

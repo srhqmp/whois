@@ -1,6 +1,13 @@
+import { useState } from "react";
 import { convertDate, truncateHostnames } from "../utils";
 
 const DomainInformation = ({ domain, hidden }) => {
+  const hostNamesExist =
+    domain?.nameServers?.hostNames && domain.nameServers.hostNames.length;
+  const [truncatedHostnames, setTruncatedHostnames] = useState(
+    hostNamesExist && domain.nameServers.hostNames.join(", ").length > 25
+  );
+
   if (hidden) return null;
 
   return (
@@ -22,17 +29,31 @@ const DomainInformation = ({ domain, hidden }) => {
             <tr>
               <td className="table-data">{domain?.domainName || "N/A"}</td>
               <td className="table-data">{domain?.registrarName || "N/A"}</td>
-              <td className="table-data">{convertDate(domain?.createdDate)}</td>
-              <td className="table-data">{convertDate(domain?.expiresDate)}</td>
+              <td className="table-data">
+                {convertDate(domain?.createdDate) || "N/A"}
+              </td>
+              <td className="table-data">
+                {convertDate(domain?.expiresDate) || "N/A"}
+              </td>
               <td className="table-data">
                 {domain?.estimatedDomainAge || "N/A"}
               </td>
               <td className="table-data">
-                {domain.nameServers &&
-                domain.nameServers.hostNames &&
-                domain.nameServers.hostNames.length
-                  ? truncateHostnames(domain.nameServers.hostNames, 25)
-                  : "N/A"}
+                {hostNamesExist ? (
+                  <div className="flex items-center flex-col gap-2">
+                    {truncatedHostnames
+                      ? truncateHostnames(domain.nameServers.hostNames, 25)
+                      : domain.nameServers.hostNames.join(", ")}{" "}
+                    <button
+                      onClick={() => setTruncatedHostnames((curr) => !curr)}
+                      className="btn-secondary"
+                    >
+                      {truncatedHostnames ? ">" : "<"}
+                    </button>
+                  </div>
+                ) : (
+                  "N/A"
+                )}
               </td>
             </tr>
           </tbody>
